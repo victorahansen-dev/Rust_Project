@@ -19,11 +19,12 @@ Intro to Variables:
     //shadowing - allows to change variable step by step without needing mut
     // each variable is its own and will only be printed once
     let y = 5;
-    println!("y is {}", x);
+    println!("y is {}", x); // prints "y is 5"
     
     let y = y + 1; // new variable
     let y = y * 2; // new variable that uses value of previous variable
-    println!("y is {}", y);
+    println!("y is {}", y); // since y became 6 in the second to last variable
+    // the last one will now be 6 * 2 and will in turn print out "y is 12"
 
 -------------------
 
@@ -67,5 +68,44 @@ Compound types - lets you mix different data types
     // which are a fixed size of 3 numbers and can be accessed using 0,1,2 and so on
     let scores : [i32; 3] = [90, 85, 100];
     println!("first score is: {}", scores[0])
+
+-------------------
+
+Functions
+-------------------
+Use of functions and expressions
+
+    // function result is printed out inside of main
+    fn main() {
+    greet("Victor");
+    println!("{}", add(10, 20));
+    }
+    
+    // every paramater in a function needs to have a data type defined
+    // example of this is seen in greet where name is defined as a string
+    fn greet(name: &str) {
+    println!("Hello {}", name);
+    }
+    
+    // another example of paramaters where a and b are defined as i32
+    fn add(a: i32, b: i32) -> i32 {
+    a + b // this is an expression - because of its lack of a semicolon
+    // its value automatically becomes the return value of the function
+    // putting a semicolon in front of the expression will make it a statement and cause an error
+    }
+-------------------
+
+Extra notes
+-------------------
+
+    // the exclamation point on commands (like println!) indicates it being a macro.
+    // a macro is a way to write code that generates other code
+    // this lets you avoid repetition and create flexible, reusable patterns.
+    
+    // The macro expands into code that formats the text and writes it to the terminal. 
+    // A normal function can also print text
+    // the macro’s advantage is that it can process the special formatting syntax inside the parentheses.
+    
+    // 
 
 -------------------
