@@ -1,7 +1,7 @@
 Writing down what I've learnt so far here
 -
 
-Intro to Variables:
+Variables:
 -------------------
 
     const MAX_POINTS: u32 = 100_000; //const is always immutable - type is required (example - u32)
