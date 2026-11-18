@@ -2,6 +2,7 @@ Writing down what I've learnt so far here
 -
 
 Variables:
+-
 -------------------
 
     const MAX_POINTS: u32 = 100_000; //const is always immutable - type is required (example - u32)
@@ -29,6 +30,7 @@ Variables:
 -------------------
 
 Data types:
+-
 -------------------
 Scalars
 -
@@ -72,8 +74,8 @@ Compound types - lets you mix different data types
 -------------------
 
 Functions
+-
 -------------------
-Use of functions and expressions
 
     // function result is printed out inside of main
     fn main() {
@@ -93,9 +95,69 @@ Use of functions and expressions
     // its value automatically becomes the return value of the function
     // putting a semicolon in front of the expression will make it a statement and cause an error
     }
+
+-------------------
+Control flow
+-
+-------------------
+if/else statements
+-
+
+    let number = 6; // our number variable
+    
+    // everything inside an if/else statement must be wrapped in curly braces
+    // this if statement checks how many times 2 can be fit into the number variable (6 in this case)
+    // afterward if the result is equal to 0, it will print the text written below in the if statement
+    // if it's not, it will print out the text in the else statement
+    
+    if number % 2 == 0 {
+            println!("The number is even!")
+        } else {
+            println!("The number is odd!")
+        }
+
+Using if statements as expressions
+-
+
+    let number = 6;
+
+    // same logic here with number variable as previously
+    // returns even if number is two and the remainder is 0 which then turns label's value into even
+    // otherwise odd will be returned and become the value of label
+    let label = if number % 2 == 0 {"even"} else {"odd"};
+
+    println!("{}", label)
+
+Loops
+-
+-------------------
+
+    // a loop runs infinitely until the terminal is shut off or when a break command is activated
+    // mutable variable to allow the number to change as the loop runs
+    let mut counter = 0;
+    let result = loop { // result is defined into a loop here
+        counter += 1; // counter variable increases by one every time the loop runs
+        if counter == 5 { // if the counter variable is 5
+            break counter * 2 // the break command will run which terminates the infinitely running loop
+            // after the loop ends, the number the counter returns is multiplied with 2
+    
+        }
+    };
+
+    println!("loop result: {}", result); // in this case the result is 10 because the equation is 5 * 2
+    // while loop
+    let mut n = 3;
+    while n!= 0 { // this loop runs while n does not equal 0
+        println!("{}", n); // prints current value of n
+        n-=1; // subtracts current value of n by 1
+    }; // this loop will run continuously until the value of n has reached 0
+    // since the starting value is 3, it will count down from 3
+    println!("Liftoff!"); // when n has reached 0, this text will print
+
 -------------------
 
 Extra notes
+-
 -------------------
 
     // the exclamation point on commands (like println!) indicates it being a macro.
@@ -106,6 +168,8 @@ Extra notes
     // A normal function can also print text
     // the macro’s advantage is that it can process the special formatting syntax inside the parentheses.
     
-    // 
+    // There are exceptions to this
+    // for instance, exclamation points can also be used as "does not equal"
+    // this is mainly used in loops, functions and if/else statements that contain numbers
 
 -------------------
