@@ -172,7 +172,33 @@ Arrays in a for loop
         // and every time the value changes the text is printed with the new value/score
     }
 
+Ownership
 -------------------
+
+    // this is just an example of how ownership transferring errors
+    /*fn main() {
+        let s1 = String::from("Hello"); // creates a heap allocated growable string different from &str
+        let s2 = s1; // the ownership of the heap data has been transferred to s2 from s1
+    
+        println!("{}", s1); // which causes an error here
+        println!("{}", s2); // because s2 now has ownership of the heap data
+        // the point of this is to prevent bugs where both s1 and s2 in which
+        // they both think they have access to the "::from("Hello");" memory
+        // but s2 can only access the memory making s1 redundant
+    } */
+    
+Cloning   
+-
+    /*fn main() {
+        let s1 = String::from("Hello");
+        let s2 = s1.clone(); // instead of the data being transferred to s2
+        //both variables has a heap allocated growing string, but is different from the one s1 has
+        // changing s2 will have no effect over s1 which allows both to be used independently
+    
+        println!("s1 = {}, s2 = {}", s1, s2); // since the heap data of s2 was cloned they will both print the same text in the string
+        // changing the one in s2 will not have an effect on s1
+
+}*/
 
 Extra notes
 -------------------
