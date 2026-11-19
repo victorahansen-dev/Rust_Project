@@ -145,14 +145,16 @@ Loops
     };
 
     println!("loop result: {}", result); // in this case the result is 10 because the equation is 5 * 2
-    // while loop
+    // this is a while loop
     let mut n = 3;
-    while n!= 0 { // this loop runs while n does not equal 0
+    // a while loop runs until the right conditions are met
+    while n!= 0 { // in this case it will run until the value of n equals 0
         println!("{}", n); // prints current value of n
         n-=1; // subtracts current value of n by 1
     }; // this loop will run continuously until the value of n has reached 0
     // since the starting value is 3, it will count down from 3
     println!("Liftoff!"); // when n has reached 0, this text will print
+}
 
 -------------------
 
