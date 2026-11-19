@@ -127,6 +127,8 @@ Using if statements as expressions
 
     println!("{}", label)
 
+-------------------
+
 Loops
 -------------------
 
@@ -171,6 +173,8 @@ Arrays in a for loop
         // the 3 items in the array work as the value of the score variable changing
         // and every time the value changes the text is printed with the new value/score
     }
+    
+-------------------
 
 Ownership
 -------------------
@@ -187,6 +191,8 @@ Ownership
         // but s2 can only access the memory making s1 redundant
     } */
     
+-------------------
+    
 Cloning   
 -
     /*fn main() {
@@ -198,7 +204,8 @@ Cloning
         println!("s1 = {}, s2 = {}", s1, s2); // since the heap data of s2 was cloned they will both print the same text in the string
         // changing the one in s2 will not have an effect on s1
 
-}*/
+    }*/
+-------------------
 
 Extra notes
 -------------------
