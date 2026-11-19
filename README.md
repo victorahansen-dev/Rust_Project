@@ -131,6 +131,8 @@ Using if statements as expressions
 Loops
 -
 -------------------
+Regular loops
+-
 
     // a loop runs infinitely until the terminal is shut off or when a break command is activated
     // mutable variable to allow the number to change as the loop runs
@@ -143,9 +145,10 @@ Loops
     
         }
     };
-
     println!("loop result: {}", result); // in this case the result is 10 because the equation is 5 * 2
-    // this is a while loop
+    
+While loops
+-
     let mut n = 3;
     // a while loop runs until the right conditions are met
     while n!= 0 { // in this case it will run until the value of n equals 0
@@ -154,7 +157,21 @@ Loops
     }; // this loop will run continuously until the value of n has reached 0
     // since the starting value is 3, it will count down from 3
     println!("Liftoff!"); // when n has reached 0, this text will print
-}
+
+For loops
+-
+    // this is a for loop - this allows you to loop over ranges and arrays
+    for i in 1..4 { // this loop prints out all numbers from the starting point (1)
+        println!("{}", i); // to the last number right below what has been written (3 in this case)
+    }
+Arrays in a for loop
+-
+    let scores = [90, 85, 100]; // here we define an array
+    for score in scores { // this loops through every item in the array once
+        println!("score is: {}", score);
+        // the 3 items in the array work as the value of the score variable changing
+        // and every time the value changes the text is printed with the new value/score
+    }
 
 -------------------
 
