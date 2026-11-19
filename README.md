@@ -2,7 +2,6 @@ Writing down what I've learnt so far here
 -
 
 Variables:
--
 -------------------
 
     const MAX_POINTS: u32 = 100_000; //const is always immutable - type is required (example - u32)
@@ -30,8 +29,8 @@ Variables:
 -------------------
 
 Data types:
--
 -------------------
+
 Scalars
 -
 
@@ -74,7 +73,6 @@ Compound types - lets you mix different data types
 -------------------
 
 Functions
--
 -------------------
 
     // function result is printed out inside of main
@@ -97,9 +95,10 @@ Functions
     }
 
 -------------------
+
 Control flow
--
 -------------------
+
 if/else statements
 -
 
@@ -129,8 +128,8 @@ Using if statements as expressions
     println!("{}", label)
 
 Loops
--
 -------------------
+
 Regular loops
 -
 
@@ -176,7 +175,6 @@ Arrays in a for loop
 -------------------
 
 Extra notes
--
 -------------------
 
     // the exclamation point on commands (like println!) indicates it being a macro.
