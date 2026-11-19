@@ -29,7 +29,7 @@ Variables:
 -------------------
 
 Data types:
--------------------
+-
 
 Scalars
 -
@@ -73,7 +73,7 @@ Compound types - lets you mix different data types
 -------------------
 
 Functions
--------------------
+-
 
     // function result is printed out inside of main
     fn main() {
@@ -97,7 +97,7 @@ Functions
 -------------------
 
 Control flow
--------------------
+-
 
 if/else statements
 -
@@ -130,9 +130,6 @@ Using if statements as expressions
 -------------------
 
 Loops
--------------------
-
-Regular loops
 -
 
     // a loop runs infinitely until the terminal is shut off or when a break command is activated
@@ -177,7 +174,7 @@ Arrays in a for loop
 -------------------
 
 Ownership
--------------------
+-
 
     // this is just an example of how ownership transferring errors
     /*fn main() {
@@ -191,7 +188,6 @@ Ownership
         // but s2 can only access the memory making s1 redundant
     } */
     
--------------------
     
 Cloning   
 -
@@ -208,7 +204,7 @@ Cloning
 -------------------
 
 Extra notes
--------------------
+-
 
     // the exclamation point on commands (like println!) indicates it being a macro.
     // a macro is a way to write code that generates other code
