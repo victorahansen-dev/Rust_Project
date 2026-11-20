@@ -231,49 +231,49 @@ Borrowing and references:
 -------------------
 Structs:
 -
-// derive Debug is an attribute asking Rust to auto generate the ability to print the struct for debugging
+    // derive Debug is an attribute asking Rust to auto generate the ability to print the struct for debugging
 
-#[derive(Debug)] // auto generates debug printing support
+    #[derive(Debug)] // auto generates debug printing support
     
-// struct User is a struct group - a struct group relates grouped data together under one type with named fields
-   
-// everything here has different data, but the user itself has only one type (user itself)
+    // struct User is a struct group - a struct group relates grouped data together under one type with named fields
+       
+    // everything here has different data, but the user itself has only one type (user itself)
     
-    struct User {
-        username: String,
-        age: u32,
-        active: bool,
-    }
-    
-    fn main() {
-        let user1 = User {
-        username: String::from("Victor"),
-        age: 18,
-        active: true,
-    };
-    
-        /*println!("{:?}", user1,); // the colon question mark inside the curly braces is the debug format placeholder
-        // this is needed because struct does not print with normal curly braces */
-    
-        // another way of printing out the text in the struct is by using dot syntax to access the individual fields
-        println!("{} is {} years old and is {}", user1.username, user1.age, user1.active);
-    
-        // this is the print command for impl
-        println!("{}", user1.describe()) // since describe is a method attached to user1 using impl
-        // the describe method automatically takes in its reference and is going to format the string, in turn this formatted string is going to be replaced at the placeholder
-        // user1.describe now has both self.username and self.active which are user1.username and user1.active
-    }
-    
-    // you can also attach a method to a struct using impl
-    // if user1 uses this describe method, a reference of itself is going to be passed as an argument
-    // so the struct itself is going to be passed as an argument and is accessed using self.username
-    // like how user1.username was accessed, but it does it automatically for you
-    
-    impl User {
-        fn describe(&self) -> String { // the describe function takes in a reference of self and returns a string
-        format!("{} (active : {})", self.username, self.active) // here the string is formatted
+        struct User {
+            username: String,
+            age: u32,
+            active: bool,
         }
-    }
+        
+        fn main() {
+            let user1 = User {
+            username: String::from("Victor"),
+            age: 18,
+            active: true,
+        };
+        
+            /*println!("{:?}", user1,); // the colon question mark inside the curly braces is the debug format placeholder
+            // this is needed because struct does not print with normal curly braces */
+        
+            // another way of printing out the text in the struct is by using dot syntax to access the individual fields
+            println!("{} is {} years old and is {}", user1.username, user1.age, user1.active);
+        
+            // this is the print command for impl
+            println!("{}", user1.describe()) // since describe is a method attached to user1 using impl
+            // the describe method automatically takes in its reference and is going to format the string, in turn this formatted string is going to be replaced at the placeholder
+            // user1.describe now has both self.username and self.active which are user1.username and user1.active
+        }
+        
+        // you can also attach a method to a struct using impl
+        // if user1 uses this describe method, a reference of itself is going to be passed as an argument
+        // so the struct itself is going to be passed as an argument and is accessed using self.username
+        // like how user1.username was accessed, but it does it automatically for you
+        
+        impl User {
+            fn describe(&self) -> String { // the describe function takes in a reference of self and returns a string
+            format!("{} (active : {})", self.username, self.active) // here the string is formatted
+            }
+        }
 
 -------------------
 
