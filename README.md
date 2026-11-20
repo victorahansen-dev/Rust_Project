@@ -2,6 +2,7 @@ Writing down what I've learnt so far here
 -
 
 Variables:
+-
 -------------------
 
     const MAX_POINTS: u32 = 100_000; //const is always immutable - type is required (example - u32)
@@ -72,7 +73,7 @@ Compound types - lets you mix different data types
 
 -------------------
 
-Functions
+Functions:
 -
 
     // function result is printed out inside of main
@@ -95,10 +96,8 @@ Functions
     }
 
 -------------------
-
-Control flow
+Control flow:
 -
-
 if/else statements
 -
 
@@ -129,7 +128,7 @@ Using if statements as expressions
 
 -------------------
 
-Loops
+Loops:
 -
 
     // a loop runs infinitely until the terminal is shut off or when a break command is activated
@@ -143,37 +142,20 @@ Loops
     
         }
     };
+
     println!("loop result: {}", result); // in this case the result is 10 because the equation is 5 * 2
-    
-While loops
--
+    // while loop
     let mut n = 3;
-    // a while loop runs until the right conditions are met
-    while n!= 0 { // in this case it will run until the value of n equals 0
+    while n!= 0 { // this loop runs while n does not equal 0
         println!("{}", n); // prints current value of n
         n-=1; // subtracts current value of n by 1
     }; // this loop will run continuously until the value of n has reached 0
     // since the starting value is 3, it will count down from 3
     println!("Liftoff!"); // when n has reached 0, this text will print
 
-For loops
--
-    // this is a for loop - this allows you to loop over ranges and arrays
-    for i in 1..4 { // this loop prints out all numbers from the starting point (1)
-        println!("{}", i); // to the last number right below what has been written (3 in this case)
-    }
-Arrays in a for loop
--
-    let scores = [90, 85, 100]; // here we define an array
-    for score in scores { // this loops through every item in the array once
-        println!("score is: {}", score);
-        // the 3 items in the array work as the value of the score variable changing
-        // and every time the value changes the text is printed with the new value/score
-    }
-    
 -------------------
 
-Ownership
+Ownership:
 -
 
     // this is just an example of how ownership transferring errors
@@ -187,10 +169,10 @@ Ownership
         // they both think they have access to the "::from("Hello");" memory
         // but s2 can only access the memory making s1 redundant
     } */
-    
-    
-Cloning   
+
+Cloning
 -
+
     /*fn main() {
         let s1 = String::from("Hello");
         let s2 = s1.clone(); // instead of the data being transferred to s2
@@ -201,9 +183,53 @@ Cloning
         // changing the one in s2 will not have an effect on s1
 
     }*/
+
 -------------------
 
-Extra notes
+Borrowing and references:
+-
+
+    fn main() {
+    let s1 = String::from("hello"); // This is an owned string created in the main function
+    let len = calculate_length(&s1); // s1 is passed as a reference into the calculate_length function instead of the value
+    of s1 itself
+    
+          println!("The length of '{}' is {}.", s1, len) // this prints out the result - s1 is the string itself and len is the length of the string
+    }
+    
+    
+    // inside the function the parameter is of the type &string - which is a borrowed string
+    // since the function is only borrowing the string, s1 is still valid in the main function
+    // if the function were to also own the string, this function would now be the viable owner of the s1 variable, and
+    would not allow you to access it in main anymore
+    // this would in turn cause an error in println!, because main is still trying to use s1 after ownership has been moved
+    fn calculate_length(s: &String) -> usize {
+    s.len() // inside the function we return the length of the string
+    }
+
+    /*fn main() {
+    let mut s = String::from("hello");
+    // while this looks like it may work because the string is mutable
+    // there will be an error - this is because both r1 and r2 are trying to borrow the s variable
+    // the issue is that mutable variables can only be borrowed once
+    let r1 = &mut s;
+    let r2 = &mut s;
+    
+        println!("'{}', '{}'", r1, r2);
+    } */
+    fn main() {
+    let mut s = String::from("hello");
+    add_exclamation(&mut s); // this passes a single mutable borrow into a function that needs to change the value
+    println!("{}", s)
+    }
+    
+    fn add_exclamation(text: &mut String) { // through this reference, the function can change the value of the s string without taking ownership nor moving the string itself in any way
+    text.push_str("!") // push str mutates the string in place through the reference
+    }
+
+-------------------
+
+Extra notes:
 -
 
     // the exclamation point on commands (like println!) indicates it being a macro.
