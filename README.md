@@ -190,11 +190,11 @@ Borrowing and references:
 -
 
     fn main() {
-    let s1 = String::from("hello"); // This is an owned string created in the main function
-    let len = calculate_length(&s1); // s1 is passed as a reference into the calculate_length function instead of the value
-    of s1 itself
-    
-          println!("The length of '{}' is {}.", s1, len) // this prints out the result - s1 is the string itself and len is the length of the string
+        let s1 = String::from("hello"); // This is an owned string created in the main function
+        let len = calculate_length(&s1); // s1 is passed as a reference into the calculate_length function instead of the value
+        of s1 itself
+        
+        println!("The length of '{}' is {}.", s1, len) // this prints out the result - s1 is the string itself and len is the length of the string
     }
     
     
@@ -208,23 +208,71 @@ Borrowing and references:
     }
 
     /*fn main() {
-    let mut s = String::from("hello");
-    // while this looks like it may work because the string is mutable
-    // there will be an error - this is because both r1 and r2 are trying to borrow the s variable
-    // the issue is that mutable variables can only be borrowed once
-    let r1 = &mut s;
-    let r2 = &mut s;
+        let mut s = String::from("hello");
+        // while this looks like it may work because the string is mutable
+        // there will be an error - this is because both r1 and r2 are trying to borrow the s variable
+        // the issue is that mutable variables can only be borrowed once
+        let r1 = &mut s;
+        let r2 = &mut s;
     
         println!("'{}', '{}'", r1, r2);
     } */
+    
     fn main() {
-    let mut s = String::from("hello");
-    add_exclamation(&mut s); // this passes a single mutable borrow into a function that needs to change the value
-    println!("{}", s)
+        let mut s = String::from("hello");
+        add_exclamation(&mut s); // this passes a single mutable borrow into a function that needs to change the value
+        println!("{}", s)
     }
     
     fn add_exclamation(text: &mut String) { // through this reference, the function can change the value of the s string without taking ownership nor moving the string itself in any way
     text.push_str("!") // push str mutates the string in place through the reference
+    }
+
+-------------------
+Structs:
+-
+// derive Debug is an attribute asking Rust to auto generate the ability to print the struct for debugging
+
+#[derive(Debug)] // auto generates debug printing support
+    
+// struct User is a struct group - a struct group relates grouped data together under one type with named fields
+   
+// everything here has different data, but the user itself has only one type (user itself)
+    
+    struct User {
+        username: String,
+        age: u32,
+        active: bool,
+    }
+    
+    fn main() {
+        let user1 = User {
+        username: String::from("Victor"),
+        age: 18,
+        active: true,
+    };
+    
+        /*println!("{:?}", user1,); // the colon question mark inside the curly braces is the debug format placeholder
+        // this is needed because struct does not print with normal curly braces */
+    
+        // another way of printing out the text in the struct is by using dot syntax to access the individual fields
+        println!("{} is {} years old and is {}", user1.username, user1.age, user1.active);
+    
+        // this is the print command for impl
+        println!("{}", user1.describe()) // since describe is a method attached to user1 using impl
+        // the describe method automatically takes in its reference and is going to format the string, in turn this formatted string is going to be replaced at the placeholder
+        // user1.describe now has both self.username and self.active which are user1.username and user1.active
+    }
+    
+    // you can also attach a method to a struct using impl
+    // if user1 uses this describe method, a reference of itself is going to be passed as an argument
+    // so the struct itself is going to be passed as an argument and is accessed using self.username
+    // like how user1.username was accessed, but it does it automatically for you
+    
+    impl User {
+        fn describe(&self) -> String { // the describe function takes in a reference of self and returns a string
+        format!("{} (active : {})", self.username, self.active) // here the string is formatted
+        }
     }
 
 -------------------
