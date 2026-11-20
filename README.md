@@ -231,6 +231,7 @@ Borrowing and references:
 -------------------
 Structs:
 -
+
     // derive Debug is an attribute asking Rust to auto generate the ability to print the struct for debugging
 
     #[derive(Debug)] // auto generates debug printing support
@@ -277,6 +278,71 @@ Structs:
 
 -------------------
 
+Enums and pattern matching:
+-
+
+    enum TrafficLight { // this is an enum, it can hold only one of these variants at a time
+    Red, // variants without any data
+    Yellow,
+    Green,
+    }
+    
+    enum Shape {
+    Circle(f64), // variants with data
+    Rectangle(f64, f64),
+    Trapezoid(f64, f64, f64)
+    }
+    
+    fn area(shape: Shape) -> f64 { // putting Shape in the parameters allows for both Circle and Rectangle to be accessed in one function
+    match shape { // checks if the enum (Shape) matches with the conditions (Circle and Rectangle)
+    // in this case both do, which means both will be calculated
+    Shape::Circle(radius) => 3.14 * radius * radius,
+    Shape::Rectangle(width, height) => width * height,
+    _ => 0.0, // since the trapezoid is not accounted for as a condition, this takes any other case aside from the two already inside the function and returns 0.0
+    }
+    }
+    
+    fn main() {
+    let light = TrafficLight::Red;
+    
+        let c = Shape::Circle(2.0); // because Circle has a float64 data type, you must add a number corresponding based on what data type used
+        let r = Shape::Rectangle(3.0, 4.0); // same logic here as Circle
+        let t = Shape::Trapezoid(1.0, 2.0, 3.0);
+    
+        println!("circle area was {}", area(c));
+        println!("rectangle area was {}", area(r));
+        println!("Trapezoid area was {}", area(t));
+    
+        match light{ // match compares a value against each possible pattern and runs the matching arm
+            TrafficLight::Red => println!("Stop"), // match is going to compare to this condition, since they are both red the condition will be true and print out "Stop"
+            TrafficLight::Yellow => println!("Slow down"), // when match checks Yellow, the condition will instead be false, in turn not printing out anything
+            TrafficLight::Green => println!("Go"), // same logic here as Yellow in this scenario
+        }
+    }
+
+-------------------
+
+Option, Result and Error Handling
+-
+
+    fn find_user(id: u32) -> Option<String> {
+    if id == 1 {
+    Some(String::from("Victor"))
+    } else {
+    None
+    }
+    }
+    
+    fn main() {
+    let result = find_user(1);
+    
+        match result {
+            Some(name) => println!("Found {}", name)
+        }
+    }
+
+-------------------
+
 Extra notes:
 -
 
@@ -290,6 +356,6 @@ Extra notes:
     
     // There are exceptions to this
     // for instance, exclamation points can also be used as "does not equal"
-    // this is mainly used in loops, functions and if/else statements that contain numbers
+    // this is mainly used in loops, functions and if/else statements
 
 -------------------
