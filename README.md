@@ -1,22 +1,18 @@
+My Rust Learning Notes
+
 Writing down what I've learnt so far while learning Rust.
 
-1. Variables
+Variables
 Constants
-
-Constants are values that cannot be changed after being declared. Unlike regular variables, constants must always have an explicitly defined data type.
-
 rust
 const MAX_POINTS: u32 = 100_000;
 
-const declares a constant.
-MAX_POINTS is the name of the constant.
-u32 specifies its data type.
+const declares a constant, which is a value that cannot be changed after being declared.
+Constants must always have an explicitly defined data type (in this case u32).
 Constants are immutable and cannot be declared using mut.
 Mutable variables
-
-Variables declared using let are immutable by default. Adding mut makes them mutable, meaning their values can be changed after declaration.
-
 rust
+// Mutable variables can be changed after being declared.
 let mut x = 5;
 
 println!("x is {}", x); // Prints 5
@@ -24,66 +20,57 @@ println!("x is {}", x); // Prints 5
 x = 6;
 println!("x is {}", x); // Prints 6
 
-mut allows the variable to be modified.
-Without mut, trying to assign a new value to x would cause a compiler error.
+Variables declared using let are immutable by default.
+Adding mut allows the variable to be modified.
+Without mut, trying to assign a new value to the variable will cause a compiler error.
 {} is a formatting placeholder that gets replaced by the value supplied to println!.
 Shadowing
-
-Shadowing allows you to declare a new variable using the same name as an existing variable.
-
-Unlike mutability, shadowing creates a new variable rather than modifying the existing one.
-
 rust
 let y = 5;
 println!("y is {}", y); // Prints 5
 
-let y = y + 1; // New variable, with the value 6
-let y = y * 2; // Another new variable, with the value 12
+let y = y + 1; // Creates a new variable with the value 6.
+let y = y * 2; // Creates another new variable with the value 12.
 
-println!("y is {}", y); // Prints 12
+println!("y is {}", y); // Prints 12.
 
-Each let declaration creates a new variable.
+Shadowing allows you to declare a new variable using the same name as an existing variable.
+Each let declaration creates a new variable rather than modifying the existing one.
 The new variable can use the value of the previous variable.
-Shadowing allows you to transform a value without needing mut.
-Shadowing can also be used to change the data type of a variable, something mutability alone cannot do.
-2. Data Types
+Shadowing allows you to transform values without needing mut.
+Unlike mutability, shadowing also allows you to change the data type of a variable.
+Data Types
 
 Rust is a statically typed language, meaning variable types must be known at compile time.
 
-Data types are generally divided into two categories: scalar types and compound types.
+Data types are divided into two main categories: scalar types and compound types.
 
 Scalar types
 
-Scalar types represent a single value. Rust has four primary scalar types:
+Scalar types represent a single value.
+
+Rust has four primary scalar types:
 
 Integers
 Floating-point numbers
 Booleans
 Characters
 Integers
-
-Integers represent whole numbers without decimal places.
-
 i32: A signed 32-bit integer. Can represent both positive and negative numbers.
 u32: An unsigned 32-bit integer. Can only represent non-negative numbers.
-
 Rust defaults to i32 when an integer type cannot otherwise be inferred.
-
 Floating-point numbers
-
-Floating-point numbers represent numbers with decimal places.
-
 f32: A 32-bit floating-point number.
 f64: A 64-bit floating-point number. This is the default floating-point type.
 Booleans
-
-Booleans represent either true or false.
-
+bool represents either true or false.
 Characters
-
-The char type represents a single Unicode character. Characters are written using single quotation marks.
-
+char represents a single Unicode scalar value.
+Characters are written using single quotation marks.
+A char is not necessarily one visible character, since some visible symbols consist of multiple Unicode values.
 rust
+// Examples of scalar types.
+
 let age: u32 = 18;
 let num: i32 = -100;
 let temperature: f64 = 36.6;
@@ -104,12 +91,10 @@ Rust has two primitive compound types:
 Tuples
 Arrays
 Tuples
-
-Tuples group multiple values together into one compound type.
-
-Unlike arrays, tuples can contain values of different data types.
-
 rust
+// A tuple groups multiple values together.
+// Unlike arrays, tuples can contain different data types.
+
 let person: (&str, u32, u32) = ("Maya", 29, 50000);
 
 println!(
@@ -118,7 +103,7 @@ println!(
 );
 
 Tuples are declared using parentheses ().
-Each element has its own data type.
+Each element can have a different data type.
 The types are specified in the same order as the values.
 Individual elements can be accessed using dot notation and their index, starting at 0.
 Tuples have a fixed length.
@@ -129,12 +114,10 @@ person.0 accesses the name.
 person.1 accesses the age.
 person.2 accesses the salary.
 Arrays
-
-Arrays group multiple values of the same data type together.
-
-Unlike vectors, arrays have a fixed length.
-
 rust
+// Arrays group multiple values of the same data type together.
+// Arrays have a fixed length.
+
 let scores: [i32; 3] = [90, 85, 100];
 
 println!("First score is: {}", scores[0]);
@@ -144,7 +127,7 @@ All elements must have the same data type.
 [i32; 3] means the array contains three signed 32-bit integers.
 Elements are accessed using their index, starting at 0.
 Trying to access an index outside the array's bounds will cause a runtime panic when using normal indexing.
-3. Functions
+Functions
 
 Functions allow you to organize code into reusable blocks.
 
@@ -156,55 +139,38 @@ fn main() {
     println!("{}", add(10, 20));
 }
 
+// Every parameter in a function must have an explicitly defined type.
 fn greet(name: &str) {
     println!("Hello {}", name);
 }
 
+// Both parameters are defined as i32.
+// -> i32 specifies that the function returns an i32.
 fn add(a: i32, b: i32) -> i32 {
     a + b
 }
 
-Function parameters
-
-Function parameters must have explicitly defined data types.
+Return values
+Functions can return values using the -> syntax.
+The final expression in a function automatically becomes its return value if it does not end with a semicolon.
+Expressions evaluate to a value, whereas statements perform an action without returning a value.
+Adding a semicolon to the final expression turns it into a statement, meaning it no longer returns that value.
 
 For example:
 
 rust
-fn greet(name: &str) {
-    println!("Hello {}", name);
-}
-
-
-Here, name is a parameter with the type &str, meaning it accepts a string slice reference.
-
-The add function takes two parameters, both of type i32.
-
-Return values
-
-Functions can return values using the -> syntax.
-
-rust
 fn add(a: i32, b: i32) -> i32 {
-    a + b
+    a + b // Expression: automatically returned.
 }
 
--> i32 specifies that the function returns an i32.
-a + b is an expression.
-Expressions evaluate to a value.
-The final expression in a function is automatically returned if it does not end with a semicolon.
-Using a semicolon turns the expression into a statement, meaning it no longer returns that value.
 
-You can also return values explicitly using the return keyword.
+You can also explicitly return a value using the return keyword.
 
-4. Control Flow
+Control Flow
 
 Control flow allows programs to make decisions based on conditions.
 
 If / else statements
-
-if and else statements allow code to execute depending on whether a condition evaluates to true or false.
-
 rust
 let number = 6;
 
@@ -215,18 +181,20 @@ if number % 2 == 0 {
     println!("The number is odd!");
 }
 
+Everything inside an if or else block must be wrapped in curly braces {}.
 % is the remainder operator.
 == checks whether two values are equal.
 If the condition evaluates to true, the if block executes.
 Otherwise, the else block executes.
-Rust requires the conditions of if statements to evaluate to a Boolean.
+Conditions in Rust must evaluate to a Boolean (true or false).
+
+In this example, dividing 6 by 2 leaves a remainder of 0, meaning the number is even.
+
 Using if statements as expressions
-
-In Rust, if statements can also return values.
-
 rust
 let number = 6;
 
+// The if statement returns a value depending on the condition.
 let label = if number % 2 == 0 {
     "even"
 } else {
@@ -235,14 +203,12 @@ let label = if number % 2 == 0 {
 
 println!("{}", label);
 
+Rust allows if statements to return values.
 If the condition is true, "even" is returned.
 Otherwise, "odd" is returned.
 The returned value is assigned to label.
-Both branches must return compatible types.
-
-This is useful when assigning values based on conditions without needing to write a separate function.
-
-5. Loops
+Both branches must return compatible data types.
+Loops
 
 Loops allow code to execute repeatedly.
 
@@ -252,16 +218,17 @@ loop
 while
 for
 Loop
-
-A loop runs indefinitely until it encounters a break statement.
-
 rust
+// A loop runs indefinitely until a break statement is reached.
+
 let mut counter = 0;
 
 let result = loop {
     counter += 1;
 
     if counter == 5 {
+        // Break terminates the loop.
+        // It can also return a value from the loop.
         break counter * 2;
     }
 };
@@ -274,45 +241,58 @@ break terminates the loop.
 break can also return a value from the loop.
 In this example, when counter reaches 5, the loop terminates and returns 5 * 2.
 
-The returned value is assigned to result, which means it will contain 10.
+The returned value is assigned to result, meaning it contains 10.
 
 While loop
-
-A while loop continues executing as long as its condition evaluates to true.
-
 rust
 let mut n = 3;
 
+// The loop runs as long as n is not equal to zero.
 while n != 0 {
     println!("{}", n);
-    n -= 1;
+
+    n -= 1; // Subtracts one from the current value of n.
 }
 
 println!("Liftoff!");
 
-The loop checks whether n is different from 0.
-If the condition is true, the loop executes.
-n -= 1 subtracts one from the current value of n.
+A while loop continues executing as long as its condition evaluates to true.
+The condition is checked before every iteration.
 Once n reaches 0, the condition becomes false and the loop terminates.
 
 In this example, the output counts down from 3 to 1, followed by Liftoff!.
 
-6. Ownership
+Ownership
 
 Ownership is one of Rust's most important concepts.
 
 It allows Rust to manage memory without requiring a garbage collector.
 
-Every value in Rust has an owner, and ownership follows three main rules:
+Ownership follows three main rules:
 
-Each value has an owner.
+Each value in Rust has an owner.
 There can only be one owner at a time.
 When the owner goes out of scope, the value is dropped and its memory can be freed.
+Stack and heap
+Stack: Stores data with a known, fixed size. Allocation and deallocation are generally very fast.
+Heap: Stores data that can have a variable size or whose size isn't known at compile time. Memory is managed dynamically.
+
+For example:
+
+rust
+let x = 5; // Integer with a known, fixed size.
+
+let s = String::from("Hello"); // Growable String.
+
+
+A String stores its contents in heap memory, while its pointer, length and capacity are stored in the String value itself.
+
 Moving ownership
 rust
 fn main() {
     let s1 = String::from("Hello");
-    let s2 = s1;
+
+    let s2 = s1; // Ownership moves from s1 to s2.
 
     // println!("{}", s1); // This would cause a compiler error.
     println!("{}", s2);
@@ -326,13 +306,11 @@ s2 is now the owner of the string.
 Rust prevents both variables from independently owning the same heap allocation. This helps prevent problems such as double-free errors.
 
 Cloning
-
-If you want to create an independent copy instead of moving ownership, you can use .clone().
-
 rust
 fn main() {
     let s1 = String::from("Hello");
-    let s2 = s1.clone();
+
+    let s2 = s1.clone(); // Creates an independent copy.
 
     println!("s1 = {}, s2 = {}", s1, s2);
 }
@@ -341,13 +319,27 @@ fn main() {
 Both variables now own their own strings.
 Changing one string does not affect the other.
 Cloning can involve allocating memory and copying data, so it can be more expensive than moving ownership.
-7. Borrowing and References
+Borrowing and References
 
 Borrowing allows you to use a value without taking ownership of it.
 
 A reference provides access to a value owned by another variable.
 
 References are created using the & operator.
+
+String vs &str
+
+These two types are closely related but serve different purposes.
+
+String is an owned, growable string.
+&str is a borrowed string slice.
+String owns its contents, whereas &str provides access to string data without owning it.
+rust
+let s1 = String::from("Hello");
+
+let s2: &str = "World";
+
+let s3: &str = &s1;
 
 Immutable references
 rust
@@ -359,6 +351,7 @@ fn main() {
     println!("The length of '{}' is {}.", s1, len);
 }
 
+// The function borrows the string instead of taking ownership.
 fn calculate_length(s: &String) -> usize {
     s.len()
 }
@@ -369,7 +362,7 @@ The function can access the string without becoming its owner.
 s.len() returns the length of the string as a usize.
 Since ownership was never transferred, s1 remains valid in main.
 
-This is useful when you want to pass data into functions without giving up ownership.
+This is useful when passing data into functions without giving up ownership.
 
 Mutable references
 
@@ -403,7 +396,7 @@ You can have multiple immutable references to a value at the same time.
 You can have only one mutable reference to a value at a time.
 You cannot have mutable and immutable references to the same value active at the same time.
 
-For example, this causes a compiler error:
+Example of something that causes a compiler error:
 
 rust
 let mut s = String::from("hello");
@@ -414,9 +407,9 @@ let r2 = &mut s; // Error: cannot borrow s mutably more than once.
 println!("{}, {}", r1, r2);
 
 
-These restrictions help prevent multiple parts of a program from modifying the same data simultaneously in unsafe ways.
+These restrictions prevent conflicting access to the same data.
 
-8. Structs
+Structs
 
 Structs allow you to group related data together under one custom data type.
 
@@ -424,6 +417,8 @@ Unlike tuples, structs give each value a named field, making the data easier to 
 
 Defining a struct
 rust
+// derive Debug automatically implements debug formatting support.
+
 #[derive(Debug)]
 struct User {
     username: String,
@@ -444,6 +439,7 @@ fn main() {
         active: true,
     };
 
+    // Access individual fields using dot notation.
     println!(
         "{} is {} years old and is active: {}",
         user1.username,
@@ -451,8 +447,10 @@ fn main() {
         user1.active
     );
 
+    // Debug formatting using {:?}.
     println!("{:?}", user1);
 
+    // Calling a method attached to User.
     println!("{}", user1.describe());
 }
 
@@ -478,7 +476,7 @@ format! creates a formatted String instead of printing directly to the terminal.
 
 When calling user1.describe(), Rust automatically passes a reference to user1 as self.
 
-9. Enums and Pattern Matching
+Enums and Pattern Matching
 
 Enums allow you to define a type that can represent one of several possible variants.
 
@@ -519,6 +517,8 @@ fn area(shape: Shape) -> f64 {
     match shape {
         Shape::Circle(radius) => 3.14 * radius * radius,
         Shape::Rectangle(width, height) => width * height,
+
+        // Placeholder: the trapezoid calculation has not been implemented.
         Shape::Trapezoid(_, _, _) => 0.0,
     }
 }
@@ -528,9 +528,6 @@ Each arm handles a particular variant.
 The values inside the variant can be extracted and used in calculations.
 _ is a wildcard pattern that ignores a value.
 Rust requires all possible variants to be covered in a match expression, unless a wildcard handles the remaining possibilities.
-
-The trapezoid calculation is currently a placeholder returning 0.0.
-
 Using the enums
 rust
 fn main() {
@@ -556,7 +553,7 @@ The match expression checks the value of light and executes the matching arm.
 
 In this example, only the Red arm executes, printing Stop.
 
-10. Option, Result and Error Handling
+Option, Result and Error Handling
 
 Rust uses enums to represent situations where a value might be missing or an operation might fail.
 
@@ -606,8 +603,6 @@ Err(E): Represents failure and contains information about the error.
 
 Unlike Option, which represents the possibility of a missing value, Result can provide information about why an operation failed.
 
-For example:
-
 rust
 // Result<f64, String> means:
 // - Success returns an f64.
@@ -624,14 +619,14 @@ fn divide(a: f64, b: f64) -> Result<f64, String> {
 }
 
 fn main() {
-    // Handle the successful and unsuccessful outcomes.
+    // Handle both possible outcomes.
     match divide(10.0, 2.0) {
         Ok(value) => println!("The result is: {}", value),
         Err(error) => println!("Error: {}", error),
     }
 
     // Test another division, this time using negative zero.
-    // In floating-point arithmetic, -0.0 == 0.0 is true.
+    // In floating-point arithmetic, -0.0 == 0.0 evaluates to true.
     match divide(10.0, -0.0) {
         Ok(value) => println!("The result is: {}", value),
         Err(error) => println!("Error: {}", error),
@@ -646,7 +641,7 @@ Rust's exhaustive pattern matching ensures that every possible variant is handle
 
 One advantage of Result is that the function does not decide what should happen when an error occurs. Instead, it returns the error to the caller, allowing the caller to decide how to handle it.
 
-11. Extra Notes
+Extra Notes
 Macros
 
 The exclamation mark (!) after certain Rust commands indicates that they are macros rather than regular functions.
@@ -658,15 +653,15 @@ println!("Hello!");
 format!("Hello!");
 vec![1, 2, 3];
 
-
 A macro is a way to generate code rather than simply execute a regular function.
+Macros allow more flexible code generation and can accept patterns of input that ordinary functions cannot.
+println! is an example of a macro that accepts formatting placeholders and multiple arguments.
 
-Macros are useful because they allow more flexible code generation and can accept patterns of input that ordinary functions cannot.
-
-For example, println! accepts formatting placeholders and multiple arguments:
+For example:
 
 rust
 let name = "Victor";
+
 println!("Hello {}, welcome to Rust!", name);
 
 
