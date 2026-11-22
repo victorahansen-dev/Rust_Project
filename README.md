@@ -1283,9 +1283,54 @@ Here:
 
 ---
 
-# 11. Extra Notes
+# 11. Collections
 
-## 11.1 Macros
+## Vec/vectors
+
+this is a growable array, in contrast to the previous arrays looked at previously
+
+which was a fixed array where we defined how many numbers the array can contain
+
+in this case we have a vector - Vec<i32> is creating a new vector with a growable list
+
+```rust
+fn main() {
+
+    let mut scores: Vec<i32> = Vec::new();
+    // every time .push is used on scores, it will add to the end
+    scores.push(90);
+    scores.push(85);
+
+    for score in &scores {
+        println!("score is: {}", score); // prints scores in vector
+    }
+
+    println!("first score: {}", scores[0]); // prints specifically the first score
+
+    // simple example of the difference between &str and String
+    let owned: String = String::from("hello");
+    let borrowed: &str = "world";
+
+    println!("{}, {}", owned, borrowed);
+}
+```
+
+instead of taking the entire scores variable which would change the ownership to the for loop we use a reference
+
+this will in turn allow for when we loop with scores, it will only be borrowing the vector to read instead of taking ownership
+
+this allows scores to still be used afterward in println!
+
+**important** if you only want to read a variable and do something with it ( as here in the for loop) just borrow the value rather than taking ownership of it
+
+String is an owned, mutable, heap-allocated string type - use String when you need ownership and mutability
+
+&str is a borrowed, immutable string slice that references a String or a string literal - &str is primarily used for read-only view of a string without ownership
+
+
+# 12. Extra Notes
+
+## 12.1 Macros
 
 The exclamation mark at the end of commands such as `println!` indicates that they are macros rather than ordinary functions.
 
@@ -1323,7 +1368,7 @@ if number != 0 {
 }
 ```
 
-## 11.2 Statements and expressions
+## 12.2 Statements and expressions
 
 One important distinction in Rust is the difference between statements and expressions.
 
@@ -1349,7 +1394,7 @@ This means it is an expression, and its value becomes the result of the block.
 
 Adding a semicolon would turn it into a statement.
 
-## 11.3 Scope
+## 12.3 Scope
 
 Scope refers to the region of code where a variable is valid and can be accessed.
 
