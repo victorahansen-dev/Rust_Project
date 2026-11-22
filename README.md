@@ -324,22 +324,75 @@ Enums and pattern matching:
 
 Option, Result and Error Handling
 -
-
-    fn find_user(id: u32) -> Option<String> {
-    if id == 1 {
-    Some(String::from("Victor"))
-    } else {
-    None
-    }
+    fn find_user(id: u32) -> Option<String> { // There are two possibilities of what can be returned here
+        if id == 1 { // this checks if id is one, if true, it will print out Some, if it's not it will print out None
+            Some(String::from("Victor")) // it will either return Some with something inside it (in this case a string)
+        } else {
+            None // or it will return None containing nothing inside it
+        }
     }
     
     fn main() {
-    let result = find_user(1);
+        let result = find_user(1); // since in this scenario this is one, it will print Some (Found (username))
+        // but if it were a different number like two, it would print None (No user found), this is a pretty simple way of handling errors without breaking anything
+        // this way works well in this scenario, but if you were trying to get something like a number - it would not be sufficient enough
     
-        match result {
-            Some(name) => println!("Found {}", name)
+        match result { // inside the main function itself, we handle the result using match
+            Some(name) => println!("Found {}", name),
+            None => println!("No user found"),
         }
     }
+
+    // Instead of returning two different things using Options,
+    // Result is a better way to handle operations that can fail.
+    
+    // Result has two possible variants:
+    // - Ok(T): represents a successful operation and contains the returned value.
+    // - Err(E): represents a failure and contains information about the error.
+    
+    // The compiler makes sure we handle both possibilities when using an exhaustive match.
+    
+    // Here, Result<f64, String> means:
+    // - Success returns a f64 (the division result).
+    // - Failure returns a String (the error message).
+    
+    fn divide(a: f64, b: f64) -> Result<f64, String> {
+    
+        // Check if the divisor is zero.
+        // Dividing by zero is not allowed in this example,
+        // so we return Err with an explanatory error message.
+        if b == 0.0 {
+            Err(String::from("cannot divide by zero"))
+    
+        // If the divisor is not zero, the operation succeeds.
+        // We wrap the result in Ok to indicate success.
+        } else {
+            Ok(a / b)
+        }
+    }
+    
+    fn main() {
+    
+        // Call divide and use match to handle both possible outcomes.
+        match divide(10.0, 2.0) {
+    
+            // If divide returns Ok, extract the value and print it.
+            Ok(value) => println!("the result is: {}", value),
+    
+            // If divide returns Err, extract the error message and print it.
+            Err(error) => println!("error: {}", error)
+        }
+    
+        // Test another division, this time using negative zero.
+        // In floating-point arithmetic, -0.0 == 0.0 evaluates to true,
+        // so this will return Err.
+        match divide(10.0, -0.0) {
+            Ok(value) => println!("the result is: {}", value),
+            Err(error) => println!("error: {}", error)
+        }
+    }
+
+    
 
 -------------------
 
