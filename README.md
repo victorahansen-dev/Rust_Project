@@ -1287,7 +1287,7 @@ Here:
 
 ## Vec/vectors
 
-this is a growable array, in contrast to the previous arrays looked at previously
+this is a growable array, in contrast to the arrays looked at previously
 
 which was a fixed array where we defined how many numbers the array can contain
 
