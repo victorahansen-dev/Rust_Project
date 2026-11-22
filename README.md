@@ -1285,7 +1285,7 @@ Here:
 
 # 11. Collections
 
-## Vec/vectors
+## 11.1 Vec/vectors
 
 this is a growable array, in contrast to the arrays looked at previously
 
