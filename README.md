@@ -1327,6 +1327,59 @@ String is an owned, mutable, heap-allocated string type - use String when you ne
 
 &str is a borrowed, immutable string slice that references a String or a string literal - &str is primarily used for read-only view of a string without ownership
 
+## 11.2 HashMap
+
+A HashMap in Rust is a collection that stores key-value pairs, allowing you to retrieve values using their corresponding keys.
+
+Example code
+```rust
+use std::collections::HashMap; // Standard library import
+
+fn main() {
+    let mut ages: HashMap<String, u32> = HashMap::new();
+    ages.insert(String::from("Victor"), 18);
+    ages.insert(String::from("academy"), 49);
+
+    if let Some(age) = ages.get("Victor") {
+        println!("Victor is {}", age)
+    }
+}
+```
+we use std::collections::HashMap; here, this in turn pulls HashMap in from the standard rust library
+
+.insert is used to insert a key value pair
+
+in the if statement an option is returned, this is because in HasMap, keys inside may not exist
+
+which is why we handle it with if let, .get will return an option.
+
+---
+
+## Iterating through HashMap
+
+In Rust, iterating over a HashMap allows you to access each key-value pair without taking ownership of the map. 
+
+This is typically done using a for loop with references. (Basic iteration shown below)
+
+```rust
+    for (name, age) in &ages {
+        println!("{} is {}", name, age)
+    }
+```
+
+Example code
+```rust
+use std::collections::HashMap; // Standard library import
+
+fn main() {
+    let mut ages: HashMap<String, u32> = HashMap::new();
+    ages.insert(String::from("Victor"), 18);
+
+    for (name, age) in &ages {
+        println!("{} is {}", name, age)
+    }
+}
+```
 
 # 12. Extra Notes
 
