@@ -1401,9 +1401,9 @@ fn main() {
 Another note is that in HashMaps, iteration order is not guaranteed. you will iterate through every single element, but the order is not guaranteed like in an array.
 
 ---
-# Traits and Generics
+# 12 Traits and Generics
 
-
+12.1 Traits
 
 ```rust
 fn largest(list: &[i32]) -> i32 {
@@ -1436,15 +1436,17 @@ Inside largest, this line sets largest to the first value in the slice:
 let mut largest = list[0];
 ```
 
-The variable created is mutable because its value may need to change as the function checks the other numbers. The for loop then visits each value in the slice:
+The variable created is mutable, this is because its value may need to change as the function checks the other numbers. 
+
+The for loop then visits each value in the slice:
 
 ```
 for &item in list {
 ```
 
-Here, item is the value being checked. Because i32 values are copied, the loop reads each number without removing it from the list.
+Here, a reference of item is the value being checked. Because i32 values are copied, the loop reads each number without removing it from the list.
 
-Each time through the loop, the function compares item with the largest value found so far. If item is greater, it updates largest; otherwise, largest stays the same.
+Each time the loop runs, the function compares item with the largest value found so far. If item is greater, it updates largest; otherwise, largest stays the same.
 
 For the vector in main, the comparisons go like this:
 
