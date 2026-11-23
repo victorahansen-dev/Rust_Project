@@ -1370,7 +1370,7 @@ which is why when handling it with if let, .get will return an option.
 
 ---
 
-## Iterating through HashMap
+## 11.4 Iterating through HashMap
 
 In Rust, iterating over a HashMap allows you to access each key-value pair without taking ownership of the map. 
 
