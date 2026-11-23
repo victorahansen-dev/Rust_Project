@@ -1306,12 +1306,6 @@ fn main() {
     }
 
     println!("first score: {}", scores[0]); // prints specifically the first score
-
-    // simple example of the difference between &str and String
-    let owned: String = String::from("hello");
-    let borrowed: &str = "world";
-
-    println!("{}, {}", owned, borrowed);
 }
 ```
 
@@ -1330,6 +1324,21 @@ if you only want to read a variable and do something with it ( as here in the fo
 String is an owned, mutable, heap-allocated string type - use String when you need ownership and mutability
 
 &str is a borrowed, immutable string slice that references a String or a string literal - &str is primarily used for read-only view of a string without ownership
+
+simple example of the difference between &str and String in code
+```rust
+fn main() {
+   
+    let owned: String = String::from("hello");
+    let borrowed: &str = "world";
+
+    println!("{}, {}", owned, borrowed);
+}
+```
+Output:
+```
+Hello, world
+```
 
 ## 11.2 HashMap
 
