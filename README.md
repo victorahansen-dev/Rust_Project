@@ -1403,7 +1403,7 @@ Another note is that in HashMaps, iteration order is not guaranteed. you will it
 ---
 # 12 Traits and Generics
 
-12.1 Traits
+## 12.1 Traits
 
 ```rust
 fn largest(list: &[i32]) -> i32 {
@@ -1459,8 +1459,9 @@ Start: largest is 10
 
 ```
 
-After the loop, the function will return the largest variable with the number reference inside it. println! then displays:
+After the loop, the function will return the largest variable with the number reference inside it.
 
+Output:
 ```
 The largest number is 47
 ```
