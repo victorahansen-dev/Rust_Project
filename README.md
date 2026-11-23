@@ -1466,11 +1466,13 @@ Output:
 ```
 The largest number is 47
 ```
-**Important**
+**Important:**
 
 This function expects the slice to contain at least one value. If it’s given an empty slice, list[0] will cause a runtime panic.
 
 ---
+
+## 12.1 Trait bounds
 
 ```rust
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
@@ -1494,6 +1496,81 @@ T represents a generic type and is now the generic placeholder instead of i32, t
 In Rust, a trait bound restricts the types that can be used with generics by requiring them to implement specific traits, ensuring the type supports certain methods or behaviors.
 
 In this scenario, we use a trait that is built into Rust, this trait means specifically that if it can be ordered and if a copy can be made, then it's T.
+
+## 12.2 Custom traits
+here we make a custom trait called Summary
+
+in Summary, we create a function called summarize, which will take in a reference of itself and return a String
+
+we then create two structs - Article and Tweet
+
+Article contains a headline of String, and Tweet contains a text of String.
+
+but how can we put our custom trait to use?
+
+Well, we've already learned how to implement functions into structs (by using impl).
+
+In addition to this, we can also implement our custom trait that we created earlier through impl
+
+Instead of making a new function, we can use the one the Summary trait already has
+
+Example code
+```
+impl Summary for Article
+```
+This allows the custom trait to be added to our struct as well as use its function
+
+```rust
+
+trait Summary {
+    fn summarize(&self) -> String;
+}
+
+struct Article {
+    headline: String,
+}
+
+struct Tweet {
+    text: String,
+}
+
+impl Summary for Article {
+    fn summarize(&self) -> String {
+        format!("Article: {}", self.headline)
+    }
+}
+
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("Tweet: {}", self.text)
+    }
+}
+
+fn main() {
+    let article = Article {
+        headline: String::from("rust hits 1.0")
+    };
+    let tweet = Tweet {
+        text: String::from("just learnt traits")
+    };
+
+    println!("{}", article.summarize());
+    println!("{}", tweet.summarize());
+}
+```
+Here: by implementing the Summary trait to Article and Tweet, they can now use the implemented item itself.
+
+That being the summarize function which is a reference of itself returning a string, which I mentioned previously
+
+But we still have to add the body of the string being returned, this is done through format!
+
+In Rust, format! is a macro that builds and returns a String by interpolating values into a format string. The format string must be a string literal, and the {} parts are replaced by the extra arguments you pass.
+
+Also, even though Article and Tweet are two different structs, they're both called through the same method name.
+
+This is because they honor the same trait. And the trait in question that we created is Summary.
+
+Using our custom trait allows us to not worry about what is contained in each struct, because they're all called from through the same method name.
 
 ---
 
@@ -1610,7 +1687,7 @@ let number: i32 = 42;
 Here: i32: a type, it tells Rust that number is a 32-bit signed integer
 
 
-The Copy trait
+## The Copy trait
 
 The Copy trait allows a value to be copied rather than moved when assigning it to another variable.
 ```rust
@@ -1658,11 +1735,11 @@ Here, ownership of the String moves from x to y.
 
 The takeaway: Copy describes the ability of a type to be copied instead of moved.
 
-The Display trait
+## The Display trait
 
 The Display trait describes how a value should be formatted when presented to the user.
 
-Let's look at an example:
+Here's an example:
 ```rust
 
 fn main() {
