@@ -1349,7 +1349,7 @@ we use std::collections::HashMap; here, this in turn pulls HashMap in from the s
 
 .insert is used to insert a key value pair
 
-in the if statement an option is returned, this is because in HasMap, keys inside may not exist
+in the if statement an option is returned, this is because in HashMap, keys inside may not exist
 
 which is why we handle it with if let, .get will return an option.
 
