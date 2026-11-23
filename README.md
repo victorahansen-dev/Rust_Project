@@ -1403,8 +1403,6 @@ Another note is that in HashMaps, iteration order is not guaranteed. you will it
 ---
 # 12 Traits and Generics
 
-## 12.1 Traits
-
 ```rust
 fn largest(list: &[i32]) -> i32 {
     let mut largest = list[0];
@@ -1464,6 +1462,29 @@ After the loop, the function will return the largest variable with the number re
 Output:
 ```
 The largest number is 47
+```
+T is now the generic placeholder instead of i32, the part after "T:" is called a trait bound.
+
+In Rust, a trait bound restricts the types that can be used with generics by requiring them to implement specific traits, ensuring the type supports certain methods or behaviors.
+
+In this scenario, we use a trait that is built into Rust, this trait means specifically that if it can be ordered and if a copy can be made, then it's T.
+
+```
+fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
+    let mut largest = list[0];
+
+    for &item in list {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+}
+
+fn main() {
+    let chars = vec!['a', 'b', 'c', 'z'];
+    println!("Largest: {}", largest(&chars));
+}
 ```
 
 ---
