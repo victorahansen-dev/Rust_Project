@@ -1489,7 +1489,7 @@ fn main() {
     println!("Largest: {}", largest(&chars));
 }
 ```
-T is now the generic placeholder instead of i32, the part after "T:" is called a trait bound.
+T represents a generic type and is now the generic placeholder instead of i32, the part after "T:" is called a trait bound.
 
 In Rust, a trait bound restricts the types that can be used with generics by requiring them to implement specific traits, ensuring the type supports certain methods or behaviors.
 
