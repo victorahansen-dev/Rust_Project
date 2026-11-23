@@ -1424,7 +1424,9 @@ This function finds and prints the largest number in a list of i32 values.
 
 The largest function takes a slice of i32 values and returns an i32. In main, we create a vector (using vec!) containing ```[10, 25, 3, 47, 8]```
 
-We then pass a reference to largest. Rust then lets this reference to the vector be used as a slice
+We then pass a reference to the vector to the largest function. Since the function expects a slice (&[i32])
+
+Rust automatically coerces the reference to the vector into a slice."
 
 This allows the function can read its values without taking ownership of or changing the vector itself.
 
@@ -1433,8 +1435,7 @@ Inside largest, this line sets largest to the first value in the slice:
 ```
 let mut largest = list[0];
 ```
-
-The variable created is mutable, this is because its value may need to change as the function checks the other numbers. 
+The variable is declared as mutable because its value may need to change as the function checks the other numbers.
 
 The for loop then visits each value in the slice:
 
@@ -1442,9 +1443,11 @@ The for loop then visits each value in the slice:
 for &item in list {
 ```
 
-Here, a reference of item is the value being checked. Because i32 values are copied, the loop reads each number without removing it from the list.
+Here, &item means that each value is copied from the reference into the variable item. Since i32 implements the Copy trait, Rust copies the value rather than moving it. 
 
-Each time the loop runs, the function compares item with the largest value found so far. If item is greater, it updates largest; otherwise, largest stays the same.
+This means the original values in the slice remain unchanged.
+
+During each iteration of the loop, the function compares item with the largest value found so far. If item is greater, it updates largest; otherwise, largest stays the same.
 
 For the vector in main, the comparisons go like this:
 
@@ -1457,19 +1460,19 @@ Start: largest is 10
 
 ```
 
-After the loop, the function will return the largest variable with the number reference inside it.
+After the loop finishes, the function returns the value stored in largest.
 
 Output:
 ```
 The largest number is 47
 ```
-T is now the generic placeholder instead of i32, the part after "T:" is called a trait bound.
+**Important**
 
-In Rust, a trait bound restricts the types that can be used with generics by requiring them to implement specific traits, ensuring the type supports certain methods or behaviors.
+This function expects the slice to contain at least one value. If it’s given an empty slice, list[0] will cause a runtime panic.
 
-In this scenario, we use a trait that is built into Rust, this trait means specifically that if it can be ordered and if a copy can be made, then it's T.
+---
 
-```
+```rust
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
 
@@ -1486,6 +1489,11 @@ fn main() {
     println!("Largest: {}", largest(&chars));
 }
 ```
+T is now the generic placeholder instead of i32, the part after "T:" is called a trait bound.
+
+In Rust, a trait bound restricts the types that can be used with generics by requiring them to implement specific traits, ensuring the type supports certain methods or behaviors.
+
+In this scenario, we use a trait that is built into Rust, this trait means specifically that if it can be ordered and if a copy can be made, then it's T.
 
 ---
 
@@ -1586,3 +1594,122 @@ fn main() {
 - For owned values, Rust also runs the appropriate cleanup when they go out of scope.
 
 ---
+
+## 13.4 Traits vs types
+
+Traits and types are two different things in Rust, an easy way to remember the difference is through thinking of them as this:
+
+Traits are the capabilities of what something can do
+
+Types are what something is
+
+Example code:
+```rust
+let number: i32 = 42;
+```
+Here: i32: a type, it tells Rust that number is a 32-bit signed integer
+
+
+The Copy trait
+
+The Copy trait allows a value to be copied rather than moved when assigning it to another variable.
+```rust
+fn main() {
+    let x = 10;
+    let y = x;
+
+    println!("x is: {}", x);
+    println!("y is: {}", y);
+}
+```
+
+Output:
+```
+x is: 10
+y is: 10
+```
+
+What's happening here?
+
+We create a variable x containing the value 10.
+
+We assign x to y.
+
+Because i32 implements the Copy trait, Rust copies the value into y.
+
+Both x and y can still be used.
+
+
+Without Copy, certain types would be moved instead, meaning the original variable could no longer be used.
+
+For example, String does not implement Copy:
+```rust
+fn main() {
+    let x = String::from("Hello");
+    let y = x;
+
+    // This would cause an error:
+    // println!("{}", x);
+
+    println!("{}", y);
+}
+```
+Here, ownership of the String moves from x to y.
+
+The takeaway: Copy describes the ability of a type to be copied instead of moved.
+
+The Display trait
+
+The Display trait describes how a value should be formatted when presented to the user.
+
+Let's look at an example:
+```rust
+
+fn main() {
+    let number = 42;
+    let name = "John";
+
+    println!("My number is {}", number);
+    println!("My name is {}", name);
+}
+```
+Output:
+```
+My number is 42
+My name is John
+```
+What's happening here?
+
+We create two variables, number and name.
+
+We use {} inside println! as a placeholder.
+
+Rust uses the Display trait to determine how to format each value.
+
+The values are printed in a human-readable format.
+
+Both i32 and string slices (&str) implement the Display trait.
+
+But What if a type doesn't implement Display?
+
+For example, if we create our own struct:
+```rust
+
+struct Person {
+    name: String,
+    age: i32,
+}
+
+fn main() {
+    let person = Person {
+        name: String::from("John"),
+        age: 25,
+    };
+
+    // This will cause an error:
+    // println!("{}", person);
+}
+```
+Rust doesn't automatically know how you want a Person to be displayed.
+
+You would need to implement the Display trait yourself.
