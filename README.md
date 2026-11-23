@@ -1321,7 +1321,11 @@ this will in turn allow for when we loop with scores, it will only be borrowing 
 
 this allows scores to still be used afterward in println!
 
-**important** if you only want to read a variable and do something with it ( as here in the for loop) just borrow the value rather than taking ownership of it
+**important** 
+
+if you only want to read a variable and do something with it ( as here in the for loop) just borrow the value rather than taking ownership of it
+
+**Short explanation of strings**
 
 String is an owned, mutable, heap-allocated string type - use String when you need ownership and mutability
 
@@ -1384,6 +1388,7 @@ fn main() {
 ```
 
 **Important:**
+
 Another note is that in HashMaps, iteration order is not guaranteed. you will iterate through every single element, but the order is not guaranteed like in an array.
 
 # 12. Extra Notes
