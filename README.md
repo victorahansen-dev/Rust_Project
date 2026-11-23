@@ -1400,9 +1400,74 @@ fn main() {
 
 Another note is that in HashMaps, iteration order is not guaranteed. you will iterate through every single element, but the order is not guaranteed like in an array.
 
-# 12. Extra Notes
+---
+# Traits and Generics
 
-## 12.1 Macros
+
+
+```rust
+fn largest(list: &[i32]) -> i32 {
+    let mut largest = list[0];
+
+    for &item in list {
+        if item > largest {
+            largest = item;
+        }
+    }
+    largest
+}
+
+fn main() {
+    let numbers = vec![10, 25, 3, 47, 8];
+    println!("The largest number is {}", largest(&numbers))
+}
+```
+This function finds and prints the largest number in a list of i32 values.
+
+The largest function takes a slice of i32 values and returns an i32. In main, we create a vector (using vec!) containing ```[10, 25, 3, 47, 8]```
+
+We then pass a reference to largest. Rust then lets this reference to the vector be used as a slice
+
+This allows the function can read its values without taking ownership of or changing the vector itself.
+
+Inside largest, this line sets largest to the first value in the slice:
+
+```
+let mut largest = list[0];
+```
+
+The variable created is mutable because its value may need to change as the function checks the other numbers. The for loop then visits each value in the slice:
+
+```
+for &item in list {
+```
+
+Here, item is the value being checked. Because i32 values are copied, the loop reads each number without removing it from the list.
+
+Each time through the loop, the function compares item with the largest value found so far. If item is greater, it updates largest; otherwise, largest stays the same.
+
+For the vector in main, the comparisons go like this:
+
+```
+Start: largest is 10
+25 > 10, so largest becomes 25
+3 > 25? No, so largest stays 25
+47 > 25, so largest becomes 47
+8 > 47? No, so largest stays 47
+
+```
+
+After the loop, the function will return the largest variable with the number reference inside it. println! then displays:
+
+```
+The largest number is 47
+```
+
+---
+
+# 13. Extra Notes
+
+## 13.1 Macros
 
 The exclamation mark at the end of commands such as `println!` indicates that they are macros rather than ordinary functions.
 
@@ -1440,7 +1505,7 @@ if number != 0 {
 }
 ```
 
-## 12.2 Statements and expressions
+## 13.2 Statements and expressions
 
 One important distinction in Rust is the difference between statements and expressions.
 
@@ -1466,7 +1531,7 @@ This means it is an expression, and its value becomes the result of the block.
 
 Adding a semicolon would turn it into a statement.
 
-## 12.3 Scope
+## 13.3 Scope
 
 Scope refers to the region of code where a variable is valid and can be accessed.
 
