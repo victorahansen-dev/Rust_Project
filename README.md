@@ -1351,7 +1351,7 @@ we use std::collections::HashMap; here, this in turn pulls HashMap in from the s
 
 in the if statement an option is returned, this is because in HashMap, keys inside may not exist
 
-which is why we handle it with if let, .get will return an option.
+which is why when handling it with if let, .get will return an option.
 
 ---
 
