@@ -1319,7 +1319,7 @@ this allows scores to still be used afterward in println!
 
 if you only want to read a variable and do something with it ( as here in the for loop) just borrow the value rather than taking ownership of it
 
-**Short explanation of strings**
+## 11.2 Strings
 
 String is an owned, mutable, heap-allocated string type - use String when you need ownership and mutability
 
@@ -1340,7 +1340,7 @@ Output:
 Hello, world
 ```
 
-## 11.2 HashMap
+## 11.3 HashMap
 
 A HashMap in Rust is a collection that stores key-value pairs, allowing you to retrieve values using their corresponding keys.
 
