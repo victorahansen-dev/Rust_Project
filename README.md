@@ -1345,6 +1345,8 @@ fn main() {
     }
 }
 ```
+here:
+
 we use std::collections::HashMap; here, this in turn pulls HashMap in from the standard rust library
 
 .insert is used to insert a key value pair
@@ -1380,6 +1382,9 @@ fn main() {
     }
 }
 ```
+
+**Important:**
+Another note is that in HashMaps, iteration order is not guaranteed. you will iterate through every single element, but the order is not guaranteed like in an array.
 
 # 12. Extra Notes
 
