@@ -1325,6 +1325,14 @@ String is an owned, mutable, heap-allocated string type - use String when you ne
 
 &str is a borrowed, immutable string slice that references a String or a string literal - &str is primarily used for read-only view of a string without ownership
 
+You might also be wondering why use &str even when there isn't any string?
+
+Using &str allows you to borrow a string slice without taking ownership. This means you avoid unnecessary heap allocations and copying of data.
+
+This makes it more lightweight than String, which owns its own data and can incur extra memory.
+
+&str is also more preferred for function paramaters, this is because it allows the function to both accept string literals and string values efficiently without the need to clone or copy the data.
+
 simple example of the difference between &str and String in code
 ```rust
 fn main() {
